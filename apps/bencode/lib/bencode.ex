@@ -25,7 +25,28 @@ defmodule Bencode do
     bencode_str |> Bd.parse_dispatcher()
   end
 
+  @doc """
+    Encodes Elixir terms into bencoded strings.
+
+   ## Examples
+
+      iex> Bencode.encode(42)
+      {:ok, "i42e"}
+
+      iex> Bencode.encode("spam")
+      {:ok, "4:spam"}
+
+      iex> Bencode.encode(["spam", 42])
+      {:ok, "l4:spami42ee"}
+
+      iex> Bencode.encode(%{"cow" => "moo", "spam" => "eggs"})
+      {:ok, "d3:cow3:moo4:spam4:eggse"}
+
+      iex> Bencode.encode(%{"info" => %{"length" => 1048576, "name" => "testfile.txt"}})
+      {:ok, "d4:infod6:lengthi1048576e4:name12:testfile.txtee"}
+  """
   def encode(bencode_str) do
-    bencode_str
+    alias BencodeEncoding, as: Be
+    bencode_str |> Be.parse_dispatcher()
   end
 end

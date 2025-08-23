@@ -1,5 +1,4 @@
 defmodule BencodeDecoding do
-  # Dispatch string to be parsed by the correct function
   def parse_dispatcher(<<digit, _::binary>> = bin_string) when digit in ?0..?9,
     do: parse_string(bin_string)
 
